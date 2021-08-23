@@ -2,9 +2,9 @@
 ## Deploy a VM with trusted launch enabled
 [[official doc link]](https://docs.microsoft.com/en-us/azure/virtual-machines/trusted-launch-portal)
 
-[important note] you have to sign in to the Azure **preview** [portal](https://aka.ms/TL_preview)
+**[important note]** you have to sign in to the Azure **preview** [portal](https://aka.ms/TL_preview)
 
-*Make sure you enabled vTPM in Advanced tab*
+*Make sure you enabled vTPM in Advanced tab* during VM creation
 
 ![](https://i.imgur.com/NY6oxzC.png)
 

@@ -107,12 +107,12 @@ note: This section assumes readers are familiar with Azure VM creation process s
     > [provisioning] <br>
 source = "dps"<br>
 global_endpoint = "https://global.azure-devices-provisioning.net/"<br>
-id_scope = "<dps scope-id>"	# change this with your scope id <br>
+id_scope = "<dps scope-id>"	# change this with your scope id <br><br>
     > [provisioning.attestation] <br>
 method = "x509"<br>
 registration_id = "edgetpm" # the device ID appeared in IoT Hub<br>
 identity_cert = "file:///var/secrets/edgetpm.cert.pem"<br>
-identity_pk = "pkcs11:token=IoTEdgeCert?pin-value=1234" <br>
+identity_pk = "pkcs11:token=IoTEdgeCert?pin-value=1234" <br><br>
     > [aziot_keys] <br>
 pkcs11_lib_path = "/usr/local/lib/libtpm2_pkcs11.so"<br>
 pkcs11_base_slot = "pkcs11:token=IoTEdgeCert?pin-value=1234"<br>
@@ -120,8 +120,10 @@ pkcs11_base_slot = "pkcs11:token=IoTEdgeCert?pin-value=1234"<br>
 
 - Run the following commands to apply the settings, view logs and see the running module
     > sudo iotedge config apply
+
     > sudo iotedge system logs
-    > sudo iotedge module list 
+
+    > sudo iotedge list 
 
 ## Check device on target IoT Hub
 You can see the device appeared on IoT Hub upon successful registration.

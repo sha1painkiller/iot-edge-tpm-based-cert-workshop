@@ -58,7 +58,7 @@ note: This section assumes readers are familiar with Azure VM creation process s
 
 ## Install tpm2-pkcs11
 - install the tpm2 software and configure a slot in the TPM from https://azure.github.io/iot-identity-service/pkcs11/tpm2-pkcs11.html
-    > wget https://raw.githubusercontent.com/ksaye/IoTDemonstrations/master/installTPM2Tools.sh
+    > wget https://raw.githubusercontent.com/sha1painkiller/iot-edge-tpm-based-cert-workshop/master/installTPM2Tools.sh
 
     > chmod +x installTPM2Tools.sh 
 

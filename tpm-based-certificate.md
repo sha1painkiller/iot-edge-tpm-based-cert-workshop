@@ -7,6 +7,7 @@
 *Make sure you enabled vTPM in Advanced tab* during VM creation
 
 ![](https://i.imgur.com/NY6oxzC.png)
+note: This section assumes readers are familiar with Azure VM creation process so we skip most of the VM setup details.
 
 ## Create CA root certificate
 1. ssh to Azure VM console
@@ -18,7 +19,7 @@
     > openssl req -key ca.key.pem -new -x509 -days 3650 -sha256 -out ca.cert.pem
     * generate a RSA key pair as Edge key (will be used in later steps)
     > openssl genrsa -aes256 -out edge.key.pem 2048
-1. download the "ca.key.pem" to local desktop
+1. download the "ca.cert.pem" to local desktop
 
 ## DPS certificate registration
 1. [Set up the IoT Hub Device Provisioning Service](https://docs.microsoft.com/en-us/azure/iot-dps/quick-setup-auto-provision)
@@ -34,40 +35,63 @@
 
 ### Create Enrollment Group
 ![](https://i.imgur.com/a1FxWBV.png)
+- "Add enrollment group"
+- select "IoT Edge" true
+- choose the certificate name we just created
+- select an existing (or create a new) IoT Hub to link to
 
-### copy our ‘ca’ files into a known location for later certificate request
-sudo mkdir /var/secrets && sudo chmod 777 /var/secrets && sudo cp ca.*.pem /var/secrets
+### move the ca* files into a known location for later use
+> sudo mkdir /var/secrets && sudo chmod 777 /var/secrets && sudo cp ca.*.pem /var/secrets
 
 ## Install Azure IoT Edge 1.2 on Ubuntu 20.04
 > curl https://packages.microsoft.com/config/ubuntu/18.04/multiarch/prod.list > ./microsoft-prod.list
-sudo cp ./microsoft-prod.list /etc/apt/sources.list.d/
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-sudo cp ./microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo apt update && sudo apt-get install -y moby-engine
-sudo apt-get install -y aziot-edge
+
+> sudo cp ./microsoft-prod.list /etc/apt/sources.list.d/
+
+> curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+
+> sudo cp ./microsoft.gpg /etc/apt/trusted.gpg.d/
+
+> sudo apt update && sudo apt-get install -y moby-engine
+
+> sudo apt-get install -y aziot-edge
 
 ## Install tpm2-pkcs11
 - install the tpm2 software and configure a slot in the TPM from https://azure.github.io/iot-identity-service/pkcs11/tpm2-pkcs11.html
     > wget https://raw.githubusercontent.com/ksaye/IoTDemonstrations/master/installTPM2Tools.sh
+
     > chmod +x installTPM2Tools.sh 
+
     > ./installTPM2Tools.sh
 
 - To see the tokens, run the following command.  Note it runs as aziotks, which has permissions.  ‘Token 0:’ is what we want
     > export PKCS11_LIB_PATH=/usr/local/lib/libtpm2_pkcs11.so
+
     > sudo -u aziotks pkcs11-tool --module "\$PKCS11_LIB_PATH" --label="tpm-rsa-pair" --login --keypairgen --usage-sign --key-type rsa:2048
+
     > sudo -u aziotks pkcs11-tool --module "\$PKCS11_LIB_PATH" --list-objects --login
 
 - Download our openssl.conf and install libp11 to support to support OpenSSL 
     > cd /var/secrets
+
     > wget https://raw.githubusercontent.com/ksaye/IoTDemonstrations/master/pkcs11_openssl.conf
+
     > sudo apt install -y pkgconf libssl-dev
+
     > mkdir ~/libp11 
+
     > cd ~/libp11
+
     > wget https://github.com/OpenSC/libp11/releases/download/libp11-0.4.11/libp11-0.4.11.tar.gz
+
     > tar -xvf libp11-0.4.11.tar.gz
+
     > cd libp11-0.4.11
+
     > ./configure
+
     > make
+    
     > sudo make install
 
 - generate the private key and make a CSR Request.  Must be aziotks to interact with the TPM

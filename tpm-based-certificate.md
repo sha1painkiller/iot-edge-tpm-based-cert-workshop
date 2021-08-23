@@ -91,7 +91,7 @@ note: This section assumes readers are familiar with Azure VM creation process s
     > ./configure
 
     > make
-    
+
     > sudo make install
 
 - generate the private key and make a CSR Request.  Must be aziotks to interact with the TPM
@@ -104,16 +104,16 @@ note: This section assumes readers are familiar with Azure VM creation process s
 
 ## Configure IoT Edge 1.2
 - Modify the /etc/aziot/config.toml with your id_scope, identity cert / key and the pkcs11 path as shown below
-    > [provisioning]
+    > [provisioning] <br>
 source = "dps"
 global_endpoint = "https://global.azure-devices-provisioning.net/"
-id_scope = "<dps scope-id>"	# change this with your scope id
-[provisioning.attestation]
+id_scope = "<dps scope-id>"	# change this with your scope id <br>
+    > [provisioning.attestation] <br>
 method = "x509"
 registration_id = "edgetpm" # the device ID appeared in IoT Hub
 identity_cert = "file:///var/secrets/edgetpm.cert.pem"
 identity_pk = "pkcs11:token=IoTEdgeCert?pin-value=1234"
-[aziot_keys]
+    > [aziot_keys] <br>
 pkcs11_lib_path = "/usr/local/lib/libtpm2_pkcs11.so"
 pkcs11_base_slot = "pkcs11:token=IoTEdgeCert?pin-value=1234"
 

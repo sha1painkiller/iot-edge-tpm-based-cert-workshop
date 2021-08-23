@@ -103,19 +103,19 @@ note: This section assumes readers are familiar with Azure VM creation process s
 - Note in our /var/secretes directory, we do not have an edgetpm.key.pem file, because that is stored in the TPM
 
 ## Configure IoT Edge 1.2
-- Modify the /etc/aziot/config.toml with your id_scope, identity cert / key and the pkcs11 path as shown below
+- Modify (or create) the /etc/aziot/config.toml with your id_scope, identity cert / key and the pkcs11 path as shown below
     > [provisioning] <br>
-source = "dps"
-global_endpoint = "https://global.azure-devices-provisioning.net/"
+source = "dps"<br>
+global_endpoint = "https://global.azure-devices-provisioning.net/"<br>
 id_scope = "<dps scope-id>"	# change this with your scope id <br>
     > [provisioning.attestation] <br>
-method = "x509"
-registration_id = "edgetpm" # the device ID appeared in IoT Hub
-identity_cert = "file:///var/secrets/edgetpm.cert.pem"
-identity_pk = "pkcs11:token=IoTEdgeCert?pin-value=1234"
+method = "x509"<br>
+registration_id = "edgetpm" # the device ID appeared in IoT Hub<br>
+identity_cert = "file:///var/secrets/edgetpm.cert.pem"<br>
+identity_pk = "pkcs11:token=IoTEdgeCert?pin-value=1234" <br>
     > [aziot_keys] <br>
-pkcs11_lib_path = "/usr/local/lib/libtpm2_pkcs11.so"
-pkcs11_base_slot = "pkcs11:token=IoTEdgeCert?pin-value=1234"
+pkcs11_lib_path = "/usr/local/lib/libtpm2_pkcs11.so"<br>
+pkcs11_base_slot = "pkcs11:token=IoTEdgeCert?pin-value=1234"<br>
 
 
 - Run the following commands to apply the settings, view logs and see the running module

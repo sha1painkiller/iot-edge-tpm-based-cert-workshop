@@ -2,7 +2,7 @@
 ## Deploy a VM with trusted launch enabled
 [[official doc link]](https://docs.microsoft.com/en-us/azure/virtual-machines/trusted-launch-portal)
 
-**[important note]** you have to sign in to the Azure **preview** [portal](https://aka.ms/TL_preview)
+**[important note]** <span style="color:red">To create a TPM-capable VM, you have to sign in through the Azure **preview** [portal](https://aka.ms/TL_preview)</span>
 
 *Make sure you enabled vTPM in Advanced tab* during VM creation
 
@@ -107,7 +107,7 @@ note: This section assumes readers are familiar with Azure VM creation process s
     > [provisioning] <br>
 source = "dps"<br>
 global_endpoint = "https://global.azure-devices-provisioning.net/"<br>
-id_scope = "<dps scope-id>"	# change this with your scope id <br><br>
+id_scope = "0ne00000000"	# replace **0ne00000000** with your own DPS scope id <br><br>
     > [provisioning.attestation] <br>
 method = "x509"<br>
 registration_id = "edgetpm" # the device ID appeared in IoT Hub<br>

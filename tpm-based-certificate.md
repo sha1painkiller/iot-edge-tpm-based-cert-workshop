@@ -36,9 +36,11 @@ note: This section assumes readers are familiar with Azure VM creation process s
 ### Create Enrollment Group
 ![](https://i.imgur.com/a1FxWBV.png)
 - "Add enrollment group"
-- select "IoT Edge" true
-- choose the certificate name we just created
-- select an existing (or create a new) IoT Hub to link to
+- Attestation Type: Certificate
+- IoT Edge device: True
+- Certificate Type: CA Certificate
+- Primary Certificate: \<choose the certificate name we just created>
+- Select the IoT hub this group can be assigned to: \<select an existing (or create a new) IoT Hub>
 
 ### move the ca* files into a known location for later use
 > sudo mkdir /var/secrets && sudo chmod 777 /var/secrets && sudo cp ca.*.pem /var/secrets

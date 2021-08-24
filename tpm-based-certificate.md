@@ -76,7 +76,7 @@ note: This section assumes readers are familiar with Azure VM creation process s
 - Download our openssl.conf and install libp11 to support to support OpenSSL 
     > cd /var/secrets
 
-    > wget https://raw.githubusercontent.com/ksaye/IoTDemonstrations/master/pkcs11_openssl.conf
+    > wget https://raw.githubusercontent.com/sha1painkiller/iot-edge-tpm-based-cert-workshop/master/pkcs11_openssl.conf
 
     > sudo apt install -y pkgconf libssl-dev
 

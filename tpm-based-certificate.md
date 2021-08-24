@@ -4,10 +4,11 @@
 
 **[important note]** <span style="color:red">To create a TPM-capable VM, you have to sign in through the Azure **preview** [portal](https://aka.ms/TL_preview)</span>
 
-*Make sure you enabled vTPM in Advanced tab* during VM creation
+Make sure you enabled vTPM in Advanced tab during VM creation
 
 ![](https://i.imgur.com/NY6oxzC.png)
-note: This section assumes readers are familiar with Azure VM creation process so we skip most of the VM setup details.
+
+*note: This section assumes readers are familiar with Azure VM creation process so we skip most of the VM setup details.*
 
 ## Create CA root certificate
 1. ssh to Azure VM console

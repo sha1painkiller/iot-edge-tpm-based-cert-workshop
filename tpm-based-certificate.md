@@ -131,3 +131,8 @@ pkcs11_base_slot = "pkcs11:token=IoTEdgeCert?pin-value=1234"<br>
 ## Check device on target IoT Hub
 You can see the device appeared on IoT Hub upon successful registration.
 ![](https://i.imgur.com/HSKSnM4.png)
+
+If you see the device, "edgetpm" in this example, appeared in the IoT Edge Device list, the TPM based certificate is successfully authenticated by DPS.
+
+## Start to deploy application modules to IoT Edge
+[check it out](https://docs.microsoft.com/en-us/azure/iot-edge/module-composition?view=iotedge-2020-11)
